@@ -1,20 +1,42 @@
 <script lang="ts">
-	// Fecha o M0: a resposta que aparece aqui atravessou Vite -> proxy -> Spring -> Postgres
-	const health = fetch('/api/actuator/health').then((r) => {
-		if (!r.ok) throw new Error(`HTTP ${r.status}`);
-		return r.json() as Promise<{ status: string }>;
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { me, logout, type Usuario } from '$lib/api/auth';
+
+	let usuario = $state<Usuario | null>(null);
+	let carregando = $state(true);
+
+	// O /me no boot também semeia o cookie XSRF-TOKEN pro resto do app
+	onMount(async () => {
+		try {
+			usuario = await me();
+		} catch {
+			usuario = null;
+		} finally {
+			carregando = false;
+		}
 	});
+
+	async function sair() {
+		await logout();
+		usuario = null;
+		await goto('/login');
+	}
 </script>
 
-<main class="flex min-h-screen flex-col items-center justify-center gap-2">
+<main class="flex min-h-screen flex-col items-center justify-center gap-4">
 	<h1 class="text-4xl font-bold">🌻 Girassol</h1>
 	<p class="text-lg opacity-70">gira em torno do que importa</p>
 
-	{#await health}
-		<p>verificando a API…</p>
-	{:then h}
-		<p class="font-mono text-green-700">API {h.status}</p>
-	{:catch e}
-		<p class="font-mono text-red-700">API fora do ar ({e.message})</p>
-	{/await}
+	{#if carregando}
+		<p>carregando…</p>
+	{:else if usuario}
+		<p>Olá, <strong>{usuario.nome}</strong>!</p>
+		<button class="rounded border px-4 py-2" onclick={sair}>Sair</button>
+	{:else}
+		<div class="flex gap-3">
+			<a class="rounded bg-amber-500 px-4 py-2 font-medium text-white" href="/login">Entrar</a>
+			<a class="rounded border px-4 py-2" href="/cadastro">Criar conta</a>
+		</div>
+	{/if}
 </main>
