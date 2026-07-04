@@ -42,7 +42,7 @@ Pedido para uma pessoa entrar em um Espaço compartilhado. Detalhado em [Arquite
 
 ## Roles e regras de permissão
 
-Três roles fixas por enquanto (ver [ADR-002](02-arquitetura.md#adr-002)):
+Três roles fixas por enquanto (ver [ADR-002](adrs/ADR-002-roles-fixas-via-can.md)):
 
 | Ação | Membro | Admin | Dono |
 |---|:-:|:-:|:-:|

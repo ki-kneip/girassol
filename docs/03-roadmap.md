@@ -76,5 +76,5 @@ Sem compromisso de ordem:
   - Antes de abrir: build passando e testes rodando localmente.
   - Na descrição: o que faz, qual regra/endpoint dos docs cobre, e como testar na mão (passos ou prints).
   - Comentário de review não é crítica pessoal — é onde o aprendizado acontece; responder "por que assim?" vale mais do que só aceitar a sugestão.
-- Dúvida de arquitetura → discutir antes de codar; a resposta que mudar decisão vira ADR novo no [02-arquitetura.md](02-arquitetura.md).
+- Dúvida de arquitetura → discutir antes de codar; a resposta que mudar decisão vira ADR novo em [adrs/](adrs/).
 - Os docs mandam no **o quê**; o **como** (pastas, libs, estilo) é liberdade — e responsabilidade — de quem implementa.
