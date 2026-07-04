@@ -1,0 +1,40 @@
+# Infraestrutura de desenvolvimento (só serviços de apoio — app roda fora daqui).
+# Variáveis vêm do .env (copie de .env.example).
+#
+# Subir:  docker compose up -d
+# Parar:  docker compose down          (dados preservados no volume)
+# Zerar:  docker compose down -v       (apaga o banco)
+#
+# Redis entra aqui se/quando o ADR-006 for revisitado.
+#
+# A network "girassol" tem nome fixo: o futuro compose.app.yaml (backend/web
+# containerizados) entra nela declarando `networks: { girassol: { external: true } }`.
+
+name: girassol-infra
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: girassol-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    networks:
+      - girassol
+    volumes:
+      - girassol-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+networks:
+  girassol:
+    name: girassol
+
+volumes:
+  girassol-pgdata:
