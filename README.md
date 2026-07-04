@@ -20,6 +20,7 @@ Girassol é um aplicativo que reúne vários aspectos da vida em um lugar só: t
 | [Visão e Domínio](docs/01-visao-e-dominio.md) | Conceitos, regras de negócio, o que cada App faz |
 | [Arquitetura](docs/02-arquitetura.md) | Modelo de dados, permissões, convites, contratos de API, ADRs |
 | [Roadmap](docs/03-roadmap.md) | Fatias verticais de implementação, milestone a milestone |
+| [Implementação](docs/04-implementacao.md) | Escolhas da versão deste repo: estrutura de pastas, Flyway, convenções |
 
 ## Stack de referência
 

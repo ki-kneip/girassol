@@ -175,27 +175,18 @@ POST   /convites/aceitar-token  { token }                      -> 204
 
 ## ADRs — decisões registradas
 
-### ADR-001: Espaço pessoal é um Espaço comum com flag
-Uma entidade só, `pessoal = true` bloqueando convites e exclusão. **Por quê:** dois conceitos dobrariam o código (queries, permissões, UI) para um comportamento 95% idêntico. A flag custa dois `if`s.
+As decisões de arquitetura vivem em [adrs/](adrs/), um arquivo por decisão, com contexto, porquê e gatilho para revisitar. As vigentes:
 
-### ADR-002: Roles fixas agora, RBAC granular talvez depois
-Três roles (`DONO`, `ADMIN`, `MEMBRO`) hardcoded, mas **toda** checagem passa pela função `can`. **Por quê:** RBAC granular é semanas de infraestrutura antes da primeira feature visível — veneno para um projeto que precisa de tração. A função `can` é a apólice de seguro: se o granular vier, só o interior dela muda. **Gatilho para revisitar:** usuários reais pedindo "quero que fulano só veja o app X".
-
-### ADR-003: Convite é uma entidade única com três modos de entrega
-In-platform, e-mail e magic link são o mesmo registro; muda apenas se o token é exposto e para quem. **Por quê:** três fluxos separados = três máquinas de estado para manter. Uma entidade = uma tabela, um ciclo de vida (`PENDENTE → ACEITO/RECUSADO/REVOGADO/EXPIRADO`), e cada modo pode ser implementado em milestone diferente sem migração.
-
-### ADR-004: Sessão via cookie httpOnly no web (não JWT em localStorage)
-**Por quê:** cookie httpOnly é imune a roubo por XSS, e sessão em servidor permite logout/revogação de verdade. JWT brilha em API pública ou microsserviços — não é o nosso caso. Quando o mobile chegar, a API pode passar a aceitar também um token opaco no header, sem quebrar o web. Requer proteção CSRF (o Spring Security já traz).
-
-### ADR-005: Provedor de e-mail atrás de interface própria
-`EmailService` da aplicação; Brevo/Resend/console são implementações. **Por quê:** e-mail transacional é commodity e free tiers mudam; ninguém deve reescrever fluxo de senha porque trocou de provedor. Bônus: em dev, roda sem conta externa.
-
-### ADR-006: Redis fora do MVP
-Sessões, tokens e cache vivem no Postgres por ora. **Por quê:** na escala do MVP, Postgres resolve tudo isso com uma dependência a menos para operar. **Gatilho para revisitar:** rate limiting sério, cache com TTL agressivo, ou filas.
+- [ADR-001](adrs/ADR-001-espaco-pessoal-e-flag.md) — Espaço pessoal é um Espaço comum com flag
+- [ADR-002](adrs/ADR-002-roles-fixas-via-can.md) — Roles fixas agora, tudo via `can()`
+- [ADR-003](adrs/ADR-003-convite-entidade-unica.md) — Convite é entidade única com três modos de entrega
+- [ADR-004](adrs/ADR-004-sessao-cookie-httponly.md) — Sessão via cookie httpOnly
+- [ADR-005](adrs/ADR-005-email-atras-de-interface.md) — Provedor de e-mail atrás de interface própria
+- [ADR-006](adrs/ADR-006-redis-fora-do-mvp.md) — Redis fora do MVP
 
 ## Deixado em aberto de propósito
 
-Decisões de quem implementa (e onde mais se aprende):
+Decisões de quem implementa (e onde mais se aprende). As escolhas da versão deste repositório estão registradas em [04-implementacao.md](04-implementacao.md) — consulte como referência, não como gabarito.
 - Estrutura de pastas e camadas internas do backend (controller/service/repository? hexagonal? decida e seja consistente).
 - Bibliotecas do frontend (roteamento, fetch/cache, componentes, formulários).
 - Estratégia de migração de banco (Flyway e Liquibase são os candidatos óbvios no ecossistema Spring).
