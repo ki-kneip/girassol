@@ -5,8 +5,6 @@
 # Parar:  docker compose down          (dados preservados no volume)
 # Zerar:  docker compose down -v       (apaga o banco)
 #
-# Redis entra aqui se/quando o ADR-006 for revisitado.
-#
 # A network "girassol" tem nome fixo: o futuro compose.app.yaml (backend/web
 # containerizados) entra nela declarando `networks: { girassol: { external: true } }`.
 
@@ -32,9 +30,27 @@ services:
       timeout: 3s
       retries: 10
 
+  # Sessões (ADR-007) — só sessão; cache/filas continuam fora até doer
+  redis:
+    image: redis:7-alpine
+    container_name: girassol-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    networks:
+      - girassol
+    volumes:
+      - girassol-redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
 networks:
   girassol:
     name: girassol
 
 volumes:
   girassol-pgdata:
+  girassol-redisdata:

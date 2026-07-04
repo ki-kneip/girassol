@@ -63,7 +63,7 @@ Sem compromisso de ordem:
 
 - Landing page (com a rotação Canteiro → Jardim → Espaço em "Seu ___ particular ou compartilhado, você decide").
 - Clientes mobile (KMP + Compose Multiplatform) e desktop (Wails) sobre a mesma API.
-- Redis, se algum gatilho do ADR-006 disparar.
+- Redis para além de sessão (cache, filas), se doer de verdade (ADR-007).
 - RBAC granular, se o gatilho do ADR-002 disparar.
 
 ## Como trabalhar (para o fluxo de mentoria)

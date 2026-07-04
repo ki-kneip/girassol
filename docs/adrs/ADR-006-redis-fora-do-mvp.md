@@ -1,6 +1,6 @@
 # ADR-006: Redis fora do MVP
 
-**Status:** Aceita
+**Status:** Superada por [ADR-007](ADR-007-redis-para-sessoes.md)
 
 ## Contexto
 Redis apareceu como candidato para sessões, cache e tokens.

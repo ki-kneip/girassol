@@ -182,7 +182,8 @@ As decisões de arquitetura vivem em [adrs/](adrs/), um arquivo por decisão, co
 - [ADR-003](adrs/ADR-003-convite-entidade-unica.md) — Convite é entidade única com três modos de entrega
 - [ADR-004](adrs/ADR-004-sessao-cookie-httponly.md) — Sessão via cookie httpOnly
 - [ADR-005](adrs/ADR-005-email-atras-de-interface.md) — Provedor de e-mail atrás de interface própria
-- [ADR-006](adrs/ADR-006-redis-fora-do-mvp.md) — Redis fora do MVP
+- [ADR-006](adrs/ADR-006-redis-fora-do-mvp.md) — Redis fora do MVP *(superada)*
+- [ADR-007](adrs/ADR-007-redis-para-sessoes.md) — Redis entra no MVP, só para sessões
 
 ## Deixado em aberto de propósito
 

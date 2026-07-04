@@ -9,4 +9,5 @@ Cada decisão relevante vira um arquivo aqui: contexto, decisão, porquê, e o g
 | [ADR-003](ADR-003-convite-entidade-unica.md) | Convite é entidade única com três modos de entrega | Aceita |
 | [ADR-004](ADR-004-sessao-cookie-httponly.md) | Sessão via cookie httpOnly (não JWT em localStorage) | Aceita |
 | [ADR-005](ADR-005-email-atras-de-interface.md) | Provedor de e-mail atrás de interface própria | Aceita |
-| [ADR-006](ADR-006-redis-fora-do-mvp.md) | Redis fora do MVP | Aceita |
+| [ADR-006](ADR-006-redis-fora-do-mvp.md) | Redis fora do MVP | Superada pela ADR-007 |
+| [ADR-007](ADR-007-redis-para-sessoes.md) | Redis entra no MVP, só para sessões | Aceita |

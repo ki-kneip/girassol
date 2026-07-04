@@ -11,7 +11,7 @@ Os docs 01–03 valem para qualquer implementação e deixam o "como" em aberto 
 | Estrutura | **Monorepo**, backend por feature (abaixo) |
 | Idioma do código | **Domínio em português, técnico em inglês** (`EspacoController`, `ConviteService`) — código e docs falam a mesma língua |
 
-Futuro já sinalizado: mobile em KMP + Compose Multiplatform, desktop com Wails, Redis só se um gatilho do ADR-006 disparar. Nada disso influencia a estrutura agora — a API REST é o contrato.
+Sessão vive no **Redis** via Spring Session (ADR-007) — só sessão; cache e filas continuam fora até doer. Futuro já sinalizado: mobile em KMP + Compose Multiplatform, desktop com Wails. Nada disso influencia a estrutura agora — a API REST é o contrato.
 
 ## Estrutura de pastas
 
